@@ -156,12 +156,12 @@ function rgt_fb_email_button_list_page() {
   $csv_url = wp_nonce_url($current_url, 'fb_email_export', 'csv');
   echo "<h2>Currently subscribed emails</h2>
   <p>Displaying most recent $count emails. <a href=\"$csv_url\">Download all as CSV</a></p>\n";
-  $emails = rgt_fb_email_button_get_emails($count);
-  if (!$emails) {
+  $results = rgt_fb_email_button_get_emails($count);
+  if (!$results) {
 	  echo "<p><em>No emails yet</em></p>";
   } else {
-    foreach($emails as $email) {
-  	  $data = $email->email;
+    foreach($results as $result) {
+  	  $data = $result->name . ' - ' . $result->email;
   	  echo "<p>$data</p>\n";
 	  }
   }
@@ -175,7 +175,7 @@ function do_email_export() {
     header("Expires: 0");
     $data = "email\n";
     $results = rgt_fb_email_button_get_emails();
-	$emails = array(array('id', 'name,', 'email'));
+	$emails = array(array('id', 'name', 'email'));
 	foreach($results as $result) {
 		$emails[] = array($result->id, $result->name, $result->email);
 	}
