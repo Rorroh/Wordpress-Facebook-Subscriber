@@ -173,20 +173,18 @@ function do_email_export() {
     header("Content-Disposition: attachment; filename=fb_emails.csv");
     header("Pragma: no-cache");
     header("Expires: 0");
-    $data = "email\n";
     $results = rgt_fb_email_button_get_emails();
-	$emails = array(array('id', 'name', 'email'));
-	foreach($results as $result) {
-		$emails[] = array($result->id, $result->name, $result->email);
-	}
+	  $emails = array(array('id', 'name', 'email'));
+	  foreach($results as $result) {
+		  $emails[] = array($result->id, $result->name, $result->email);
+	  }
 
-	$op = fopen('php://output','w');
-	foreach($emails as $row)
-	{
-		fputcsv($op,$row);
-	}
-	fclose($op);
-	exit();
+  	$op = fopen('php://output','w');
+  	foreach($emails as $row) {
+  		fputcsv($op,$row);
+  	}
+  	fclose($op);
+  	exit();
   }
 }
 
